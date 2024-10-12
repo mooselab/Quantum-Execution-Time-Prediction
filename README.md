@@ -25,20 +25,18 @@ We recommend using an Anaconda environment with Python version 3.9, and followin
 
 ## Data Source
 
-The quantum circuits dataset used in our project is sourced from the MQTBench, hosted by the Chair of Quantum Technologies at the Technical University of Munich (TUM). More information can be found on their website: [MQTBench](https://www.cda.cit.tum.de/mqtbench/).
+The quantum programs dataset used in our project is sourced from the MQTBench, hosted by the Chair of Quantum Technologies at the Technical University of Munich (TUM). More information can be found on their website: [MQTBench](https://www.cda.cit.tum.de/mqtbench/).
 
 
 ## Experiments
 
-The general process to replicate our results is:
+To replicate our results, follow the general process outlined below:
 
-1. Generate structured parsed dataset using [loglizer](https://github.com/logpai/loglizer) with Drain parser into JSON format.
-2. Split the dataset into training and testing set and save as NPZ format, with `x_train`, `y_train`, `x_test`, `y_test`.
-3. Generate selected log representations with corresponding codes within the `logrep` folder, and generates representations and save as NPY or NPZ format.
-4. If the studied technique generates event-level representations, use the `aggregation.py` in the `logrep` folder to merge them into sequence-level for the models that demand sequence-level input.
-5. Load generated representations and corresponding labels, and run the models within the `models` folder to get the results.
-
-* Sample parsed data and splitted data are provided in `samples` folder.
+1. Execute all quantum programs on simulators to obtain the features and execution times for each program.
+2. Use Active Learning to select a subset of quantum programs to execute on real quantum computers, obtaining their features and execution times.
+3. Train the model using data obtained from simulators and evaluate the results.
+4. Perform cross-validation using data obtained from quantum computers and evaluate the results.
+5. Assess the overall performance and results.
 
 
 ## Acknowledgements
