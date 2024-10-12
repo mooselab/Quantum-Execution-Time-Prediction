@@ -14,9 +14,12 @@ This repository is organized into the following folders:
 ## Dependencies
 We recommend using an Anaconda environment with Python version 3.9, and following Python requirement should be met.
 
-* Numpy 1.20.3
-* PyTorch 1.10.1
-* Sklearn 0.24.2
+* Numpy 1.23.5
+* Pandas 2.1.4
+* PyTorch 1.13.1
+* Qiskit 0.44.2
+* Torch_geometric 2.5.2
+* Sklearn 1.3.0
 
 ## Dataset
 
