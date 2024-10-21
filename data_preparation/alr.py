@@ -135,31 +135,34 @@ def GX(sample, num):
     x = torch.zeros_like(sample[0][2].x)
     gf = torch.zeros_like(sample[0][2].global_features)
     result = {}
+    index_list = []
     for data in sample:
         x += data[2].x
         gf += data[2].global_features
     centroid = [x/len(sample), gf/len(sample)]
-    i = 0
-    index_list = []
-    while i < num:
-        dist = 0
-        index = 0
-        for j, data in enumerate(sample):
-            if j not in index_list:
-                d = 0.5 * torch.linalg.norm(data[2].x - centroid[0]) \
-                    + 0.5 * torch.linalg.norm(data[2].global_features - centroid[1])
-                if d > dist:
-                    index, dist = j, d
-        index_list.append(index)
-        x = torch.zeros_like(sample[0][2].x)
-        gf = torch.zeros_like(sample[0][2].global_features)
-        for k in index_list:
-            x += sample[k][2].x
-            gf += sample[k][2].global_features
-        centroid = [x/len(index_list), gf/len(index_list)]
-        i += 1
-    sample_list = [sample[i] for i in index_list]
+    dist = np.inf
+    index = 0
+    for j, data in enumerate(sample):
+        d = 0.5 * torch.linalg.norm(data[2].x - centroid[0]) \
+            + 0.5 * torch.linalg.norm(data[2].global_features - centroid[1])
+        if d < dist:
+            index, dist = j, d
+    index_list.append(index)
 
+    while len(index_list) < num:
+        dist = [np.inf] * len(sample)
+        for j, data in enumerate(sample):
+            if j in index_list:
+                dist[j] = 0
+                continue
+            for k in index_list:
+                d = 0.5 * torch.linalg.norm(data[2].x - sample[k][2].x) \
+                    + 0.5 * torch.linalg.norm(data[2].global_features - sample[k][2].global_features)
+                if d < dist[j]:
+                    dist[j] = d
+        index_list.append(np.argmax(dist))
+    
+    sample_list = [sample[i] for i in index_list]
     for sample in sample_list:
         if sample[1] not in result:
             result[sample[1]] = []
