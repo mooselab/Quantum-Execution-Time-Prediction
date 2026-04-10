@@ -1,5 +1,5 @@
 # Quantum-Execution-Time-Prediction
-The repository contains the detailed results and replication package for the paper "Understanding and Estimating the Execution Time of Quantum Programs".
+The repository contains the detailed results and replication package for the paper [https://dl.acm.org/doi/10.1145/3778031]("Understanding and Estimating the Execution Time of Quantum Circuits").
 
 In this paper, we first study the characteristics of quantum programs' runtime on simulators and real quantum computers. Then, we introduce an innovative method that employs a graph transformer-based model, utilizing the graph information and global information of quantum programs to estimate their execution time. We selected a benchmark dataset comprising over 1510 quantum programs, initially predicting their execution times on simulators, which yielded promising results with an R-squared value over 95\%. Subsequently, for the estimation of execution times on quantum computers, we applied active learning to select 340 samples with a confidence level of 95\% to build and evaluate our approach, achieving an average R-squared value exceeding 90\%. 
 
